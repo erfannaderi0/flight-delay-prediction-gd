@@ -26,6 +26,7 @@ venv/
 #data
 data/raw/
 data/processed/
+data/temp.py
 
 Thumbs.db
 .ipynb_checkpoints/
