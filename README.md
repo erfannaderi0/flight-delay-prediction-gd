@@ -58,6 +58,7 @@ to deeply understand how models train and optimize — not just use black-box AP
 ```
 flight-delay-prediction/
 │
+├──log
 ├── data/
 │ ├── raw/
 │ └── processed/

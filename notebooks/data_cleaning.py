@@ -1,4 +1,11 @@
 import pandas as pd
+import logging
+
+logging.basicConfig(
+    filename="log/data_processing.log",  # file to save logs
+    level=logging.INFO,                  # what level of messages to log
+    format="%(asctime)s - %(levelname)s - %(message)s"  # log format
+)
 
 file_path = 'data/raw/flight_delay_2019_2023.csv'
 
@@ -60,8 +67,8 @@ df['DEST'] = df['DEST'].str.strip().str.upper()
 df = df.drop(columns=['DIVERTED'], errors='ignore')
 
 df = df.reset_index(drop=True)
-print("Cleaned shape:", df.shape)
+logging.info(f"Cleaned shape: {df.shape}")
 
 save_path = 'data/processed/flight_delay_cleaned.csv'
 df.to_csv(save_path, index=False)
-print(f"Cleaned data saved to {save_path}")
+logging.info(f"Cleaned data saved to {save_path}")

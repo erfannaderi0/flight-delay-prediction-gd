@@ -56,3 +56,4 @@ tmp/
 *.swp
 *.bak
 *.tmp
+log/
