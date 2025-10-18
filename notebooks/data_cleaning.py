@@ -69,6 +69,24 @@ df = df.drop(columns=['DIVERTED'], errors='ignore')
 df = df.reset_index(drop=True)
 logging.info(f"Cleaned shape: {df.shape}")
 
+
+#handeling NAN to have functional gradient descent
+# Replace infinite values with NaN (just in case)
+df = df.replace([float('inf'), float('-inf')], pd.NA)
+
+# Fill remaining NaNs
+# For numeric columns: fill with median (less bias than mean)
+numeric_cols = df.select_dtypes(include='number').columns
+df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].median())
+
+# For categorical columns: fill with mode (most common value)
+categorical_cols = df.select_dtypes(include='object').columns
+for col in categorical_cols:
+    df[col] = df[col].fillna(df[col].mode()[0])
+
+# Verify no NaNs remain
+logging.info(f"Remaining NaNs: {df.isna().sum().sum()}")
+
 save_path = 'data/processed/flight_delay_cleaned.csv'
 df.to_csv(save_path, index=False)
 logging.info(f"Cleaned data saved to {save_path}")
