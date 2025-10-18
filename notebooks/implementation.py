@@ -31,7 +31,7 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
 # Train model
-model = LinearRegressionGD(learning_rate=0.01, n_iters=1000)
+model = LinearRegressionGD(learning_rate=0.01, n_iters=300)
 model.fit(X_train, y_train)
 
 # Evaluate
